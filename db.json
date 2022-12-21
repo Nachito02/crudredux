@@ -1,0 +1,19 @@
+{
+  "productos": [
+    {
+      "nombre": "Rib Eye 800g",
+      "precio": "200",
+      "id": 4
+    },
+    {
+      "nombre": "Branding para YT Actualizado",
+      "precio": "2000",
+      "id": 5
+    },
+    {
+      "nombre": "Definir plataforma",
+      "precio": "5000",
+      "id": 6
+    }
+  ]
+}
