@@ -4,6 +4,8 @@ import React, {useState} from 'react'
 import { crearNuevoProductoAction } from '../actions/productosAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { mostrarAlerta,ocultarAlertaAction } from '../actions/alertaAction';
+
 const NuevoProducto = () => {
     const history = useNavigate()
         //state del componente
@@ -19,6 +21,7 @@ const NuevoProducto = () => {
 
         const cargando = useSelector((state) => state.productos.loading)
         const error = useSelector(state => state.productos.error)
+        const alerta = useSelector(state => state.alerta.alerta);
 
     // mandar llamar el action de producto action
     const agregarProducto = (producto)  => disptach(crearNuevoProductoAction(producto))
@@ -30,11 +33,19 @@ const NuevoProducto = () => {
        
         // validar formulario
         if(nombre.trim() === "" || precio <= 0) {
-            return 
+
+            const alerta = {
+                msg: 'Ambos campos son obligatorios',
+                clases: 'alert alert-danger text-center text-uppercase p3'
+            }
+           disptach( mostrarAlerta(alerta))
+
+
+           return
         }
 
         //si no hay errores
-        
+        disptach(ocultarAlertaAction())
         //crea el nuevo producto
 
         agregarProducto({
@@ -53,6 +64,8 @@ const NuevoProducto = () => {
                     <h2 className='text-center'>
                         Agregar nuevo producto
                     </h2>
+
+                    {alerta ? <p className={alerta.clases}>{alerta.msg}</p> : null}
 
                 <form onSubmit={submitNuevoProducto}>
                     <div className='form-group'>

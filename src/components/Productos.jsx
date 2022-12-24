@@ -38,7 +38,7 @@ const Productos = () => {
         </thead>
 
             <tbody>
-                  {productos.length === 0 ? 'No hay productos' : (
+                  {productos.length === 0 ? <tr>No hay productos</tr> : (
                     productos.map(producto => (
                       <Producto producto={producto} key={producto.id} />
                     ))

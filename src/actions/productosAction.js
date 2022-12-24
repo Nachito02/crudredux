@@ -12,7 +12,8 @@ import {
 
     OBTENER_PRODUCTO_EDITAR,
     PRODUCTO_EDITADO_EXITO,
-    PRODUCTO_EDITADO_ERROR
+    PRODUCTO_EDITADO_ERROR,
+    COMENZAR_EDICION_PRODUCTO
 } from '../types'
 
 import clienteAxios from '../config/axios';
@@ -162,4 +163,29 @@ export function obtenerProductoEditar(producto) {
 const obtenerProductoEditarAction = producto => ({
     type: OBTENER_PRODUCTO_EDITAR,
     payload: producto
+})
+
+//edita un registro en la api y sate
+
+export function editarProductoAction(producto) {
+    return async (dispatch) =>{
+        dispatch(editarProducto(producto));
+
+        try {
+          await clienteAxios.put(`/productos/${producto.id}`,producto)
+         dispatch(editarProductoExito(producto))
+        } catch (error) {
+            
+        }
+    }
+}
+
+
+const editarProducto = () =>({
+    type:COMENZAR_EDICION_PRODUCTO
+})
+
+const editarProductoExito = (producto) =>({
+    type:PRODUCTO_EDITADO_EXITO,
+    payload:producto
 })
